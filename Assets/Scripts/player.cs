@@ -5,34 +5,30 @@ public class player : MonoBehaviour
 {
 	private bool facingRight = false;
 	public float speed;
+	public int fuel;
 
-	// Use this for initialization
-	void Start ()
-	{
-	
-	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown(KeyCode.RightArrow))
+		if (Input.GetKey(KeyCode.RightArrow))
 		{
 			if (!facingRight)
 			{
 				flip();
 			}
-			//move right
+			transform.Translate(speed, 0, 0);
 		}
-		else if (Input.GetKeyDown(KeyCode.LeftArrow))
+		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			if (facingRight)
 			{
 				flip();
 			}
-			//move left
+			transform.Translate(-speed, 0, 0);
 		}
 	}
 
+	//Change direction player sprite is facing
 	void flip()
 	{
 		facingRight = !facingRight;
@@ -40,5 +36,13 @@ public class player : MonoBehaviour
 		Vector2 scale = transform.localScale;
 		scale.x *= -1;
 		transform.localScale = scale;
+	}
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.name == "star")
+		{
+			
+		}
 	}
 }
