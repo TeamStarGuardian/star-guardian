@@ -44,6 +44,7 @@ public class player : MonoBehaviour
 			}
             transform.Translate(Vector2.left * 4f * Time.deltaTime);
         }
+<<<<<<< HEAD
 
         if (transform.position.x <= -3.0f)
         {
@@ -54,6 +55,9 @@ public class player : MonoBehaviour
             transform.position = new Vector2(3.0f, transform.position.y);
         }
     }
+=======
+	}
+>>>>>>> origin/master
 
 	//Change direction player sprite is facing
 	void flip()
@@ -67,6 +71,7 @@ public class player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+<<<<<<< HEAD
         //If the player hits the star
         if (col.gameObject.name == "Star(Clone)")
         {
@@ -104,4 +109,12 @@ public class player : MonoBehaviour
         fuelRect.width = rectWidth;
         GUI.DrawTexture(fuelRect, fuelTexture);
     }
+=======
+        Debug.Log("Collision Detected");
+        if (col.gameObject.name == "Star(Clone)")
+        {
+            Destroy(col.gameObject);
+        }
+    }
+>>>>>>> origin/master
 }
