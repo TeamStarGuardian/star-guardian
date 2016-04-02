@@ -24,9 +24,9 @@ public class Spawn : MonoBehaviour {
 			//...
 			for (int i = 0; i < 5; i++)
 			{
-				GameObject clone = (GameObject) Instantiate(star, new Vector3(xSpawnCoord[i], 7), Quaternion.identity);
-				clone.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -1 * speed, 0);
-			}
+				GameObject clone = (GameObject) Instantiate(star, new Vector3(xSpawnCoord[i], 3), Quaternion.identity);
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -1 * speed, 0);
+            }
 		}
 	}
 }
