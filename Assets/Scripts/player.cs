@@ -16,16 +16,16 @@ public class player : MonoBehaviour
 			{
 				flip();
 			}
-			transform.Translate(speed, 0, 0);
-		}
+            transform.Translate(Vector2.right * 4f * Time.deltaTime);
+        }
 		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			if (facingRight)
 			{
 				flip();
 			}
-			transform.Translate(-speed, 0, 0);
-		}
+            transform.Translate(Vector2.left * 4f * Time.deltaTime);
+        }
 	}
 
 	//Change direction player sprite is facing
@@ -38,11 +38,12 @@ public class player : MonoBehaviour
 		transform.localScale = scale;
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
-	{
-		if (col.gameObject.name == "star")
-		{
-			
-		}
-	}
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("Collision Detected");
+        if (col.gameObject.name == "Star(Clone)")
+        {
+            Destroy(col.gameObject);
+        }
+    }
 }

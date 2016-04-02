@@ -32,4 +32,5 @@ public class star : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
 }
