@@ -5,8 +5,8 @@ public class player : MonoBehaviour
 {
 	private bool facingRight = false;
 	public float speed;
-    public float fuel = 5;
-    public float maxFuel = 10;
+    public float fuel;
+    public float maxFuel = 30;
     public int score = 0;
     public GUIText scoreText;
     public Sprite goodStar;
@@ -15,11 +15,16 @@ public class player : MonoBehaviour
     public Rect fuelRect;
     public Texture2D fuelTexture;
 
+    public AudioClip badStarAudio;
+    public AudioClip goodStarAudio;
+    private AudioSource source;
+
     void Start()
     {
+        source = GetComponent<AudioSource>();
         fuel = maxFuel;
 
-        fuelRect = new Rect(Screen.width / 10, Screen.height / 10, Screen.width / 3, Screen.height / 50);
+        fuelRect = new Rect(Screen.width / 4, Screen.height/ 1.2F, Screen.width / 24, Screen.height / 30);
         fuelTexture = new Texture2D(1, 1);
         fuelTexture.SetPixel(0, 0, Color.red);
         fuelTexture.Apply();
@@ -75,6 +80,7 @@ public class player : MonoBehaviour
             //If the star is a good star
             if (col.gameObject.GetComponent<SpriteRenderer>().sprite ==  goodStar)
             {
+                source.PlayOneShot(goodStarAudio, 5);
                 //Add 1 to score
                 score = score + 1;
                 //Set score to reflect new score
@@ -88,8 +94,9 @@ public class player : MonoBehaviour
             //If the player hits a bad star
             if (col.gameObject.GetComponent<SpriteRenderer>().sprite == badStar)
             {
+                source.PlayOneShot(badStarAudio, 5);
                 //Take away fuel from user
-                if(fuel != 0)
+                if (fuel != 0)
                 {
                     fuel--;
                 }
@@ -97,11 +104,12 @@ public class player : MonoBehaviour
         }
     }
 
+    //Drawing the fuelgauge
     void OnGUI()
     {
-        float ratio = fuel / maxFuel;
-        float rectWidth = ratio * Screen.width / 3;
-        fuelRect.width = rectWidth;
+        float ratio = -(fuel / maxFuel);
+        float rectHeight = ratio * Screen.height / 2;
+        fuelRect.height = rectHeight;
         GUI.DrawTexture(fuelRect, fuelTexture);
     }
 }
