@@ -63,11 +63,15 @@ public class player : MonoBehaviour
 	//Change direction player sprite is facing
 	void flip()
 	{
-		facingRight = !facingRight;
+        // check if paused first
+        if (Time.timeScale != 0)
+        {
+            facingRight = !facingRight;
 
-		Vector2 scale = transform.localScale;
-		scale.x *= -1;
-		transform.localScale = scale;
+            Vector2 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
 	}
 
     void OnCollisionEnter2D(Collision2D col)
