@@ -60,8 +60,22 @@ public class MenuScript : MonoBehaviour
         creditsMenu.enabled = false;
 
         // set booleans for music and diff
-        musicEnabled = true;
-        isEasy = true;
+        musicEnabled = GlobalControl.Instance.musicOn;
+        isEasy = GlobalControl.Instance.isEasy;
+
+        // update the values and labels accordingly
+        if (!musicEnabled) {
+            musicBtn.GetComponentInChildren<Text>().text = "turn music on";
+            music.enabled = false;
+            music.Stop();
+        }  
+        if (!isEasy) {
+            // stuff here to handle level difficulty
+            difficultyBtn.GetComponentInChildren<Text>().text = "set difficulty: easy";
+        }
+
+        //musicEnabled = true;
+        //isEasy = true;
     }
 
     // Show exit submenu and disable the buttons
@@ -84,8 +98,10 @@ public class MenuScript : MonoBehaviour
         optionsBtn.enabled = true;
     }
 
+    // Save the state into the GlobalManager and load the play scene
     public void PlayButtonPressed()
     {
+        SaveState();
         SceneManager.LoadScene("Play");
     }
 
@@ -140,7 +156,7 @@ public class MenuScript : MonoBehaviour
             music.Stop();
             musicBtn.GetComponentInChildren<Text>().text = "turn music on";
             // toggle comment
-        } else
+        } else if (!musicEnabled)
         {
             musicEnabled = true;
             music.enabled = true;
@@ -161,6 +177,13 @@ public class MenuScript : MonoBehaviour
             isEasy = true;
             difficultyBtn.GetComponentInChildren<Text>().text = "set difficulty: hard";
         }
+    }
+
+    // Deals with data persistence between scenes
+    public void SaveState()
+    {
+        GlobalControl.Instance.isEasy = isEasy;
+        GlobalControl.Instance.musicOn = musicEnabled;
     }
 
     // Exit the game
